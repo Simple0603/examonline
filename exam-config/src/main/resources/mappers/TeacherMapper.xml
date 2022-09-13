@@ -16,7 +16,7 @@
   <sql id="Base_Column_List">
     id, tname, mnemonic_code, pass, yl1, yl2, yl3, yl4, create_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="teacherMap">
     select 
     <include refid="Base_Column_List" />
     from t_teacher

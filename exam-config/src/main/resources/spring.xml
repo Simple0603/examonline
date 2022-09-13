@@ -74,4 +74,8 @@
         <aop:pointcut id="examCut" expression="execution(* com.duyi.examonline.service.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="examCut"/>
     </aop:config>
+
+    <!-- service -->
+    <bean id="teacherService" class="com.duyi.examonline.service.impl.TeacherServiceImpl">
+    </bean>
 </beans>
