@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/exam-parent" />
+    <file type="web" url="file://$PROJECT_DIR$/exam-web-student" />
+    <file type="web" url="file://$PROJECT_DIR$/exam-web-teacher" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/exam-parent/pom.xml" />
+        <option value="$PROJECT_DIR$/exam-config/pom.xml" />
+        <option value="$PROJECT_DIR$/exam-common/pom.xml" />
+        <option value="$PROJECT_DIR$/exam-test/pom.xml" />
+        <option value="$PROJECT_DIR$/exam-domain/pom.xml" />
+        <option value="$PROJECT_DIR$/exam-dao/pom.xml" />
+        <option value="$PROJECT_DIR$/exam-service/pom.xml" />
+        <option value="$PROJECT_DIR$/exam-web-teacher/pom.xml" />
+        <option value="$PROJECT_DIR$/exam-web-student/pom.xml" />
+      </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/exam-parent/excel-config/pom.xml" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

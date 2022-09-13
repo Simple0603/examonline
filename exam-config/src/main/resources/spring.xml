@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       https://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       https://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       https://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx
+       https://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- scan all annotation in base-package -->
+    <context:component-scan base-package="com.duyi.examonline"></context:component-scan>
+
+    <!-- import db.properties -->
+    <context:property-placeholder location="classpath:db.properties"></context:property-placeholder>
+
+    <!-- import dataSource -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${mysql.driver}"></property>
+        <property name="url" value="${mysql.url}"></property>
+        <property name="username" value="${mysql.username}"></property>
+        <property name="password" value="${mysql.password}"></property>
+        <!-- property of connection pool -->
+        <property name="initialSize" value="${druid.initialSize}"></property>
+        <property name="maxActive" value="${druid.maxActive}"></property>
+        <property name="minIdle" value="${druid.minIdle}"></property>
+        <property name="maxWait" value="${druid.maxWait}"></property>
+    </bean>
+
+    <!-- import SqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="mapperLocations" value="classpath:mappers/*.xml"></property>
+        <!-- 对指定包中的类设置别名，别名就是类名或类名首字母小写 -->
+        <property name="typeAliasesPackage" value="com.duyi.examonline.domain"></property>
+        <property name="configLocation" value="classpath:mybatis.xml"></property>
+    </bean>
+
+    <!-- get MapperScannerConfigurer to get mapper -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+        <!--
+            扫描  mapper 接口所在的包。 未来当我们需要操作这些包中mapper接口时
+            这个Configurer对象就会实现mybatis的mapper机制，生成接口对应的代理类
+            mapper 接口含义和 dao一样。
+         -->
+        <property name="basePackage" value="com.duyi.examonline.dao" />
+    </bean>
+
+    <!-- get TransactionManager -->
+    <bean id="manager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+    <!-- transaction advice settings -->
+    <tx:advice id="txAdvice" transaction-manager="manager">
+        <tx:attributes>
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="load*" read-only="true"/>
+            <tx:method name="select*" read-only="true"/>
+            <tx:method name="*" isolation="READ_COMMITTED" propagation="REQUIRED" rollback-for="java.lang.Throwable"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- aop settings -->
+    <aop:config>
+        <aop:pointcut id="examCut" expression="execution(* com.duyi.examonline.service.*.*(..))"/>
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="examCut"/>
+    </aop:config>
+</beans>
