@@ -18,8 +18,13 @@ public class Test1 {
     @Test
     public void insertTeacher(){
         Teacher teacher = new Teacher();
-        teacher.setTname("ÕÅÈý");
+        teacher.setTname("å¼ ä¸‰");
         teacher.setPass("123");
         teacherService.insert(teacher);
+    }
+    @Test
+    public void selectTeacher(){
+        Teacher teacher = teacherService.selectByName("zhangsan");
+        System.out.println(teacher.getTname());
     }
 }

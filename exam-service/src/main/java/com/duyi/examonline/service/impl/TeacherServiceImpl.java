@@ -20,4 +20,9 @@ public class TeacherServiceImpl implements TeacherService {
         teacher.setPass(new Digester(DigestAlgorithm.MD5).digestHex(teacher.getPass()));
         teacherMapper.insert(teacher);
     }
+
+    @Override
+    public Teacher selectByName(String tname) {
+        return teacherMapper.selectByName(tname);
+    }
 }

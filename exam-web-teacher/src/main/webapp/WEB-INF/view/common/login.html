@@ -5,12 +5,8 @@
         <title th:text="#{title_label}"></title>
         <base th:href="@{/}">
 
-        <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
-        <!-- jquery 核心 javascript 文件 -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+        <th:block th:include="common::link"></th:block>
+
         <link rel="stylesheet" type="text/css" href="css/login.css">
         <script src="js/login.js"></script>
     </head>
@@ -31,7 +27,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="password" th:text="#{password_label}"></label>
+                    <label for="pass" th:text="#{password_label}"></label>
                     <div class="input-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-lock"></span>
@@ -44,7 +40,7 @@
                         <input type="checkbox"> <span th:text="#{remember_label}"></span>
                     </label>
                 </div>
-                <button type="submit" class="btn btn-info btn-block" th:text="#{login_btn_label}"></button>
+                <button onclick="login.toLogin()" type="button" class="btn btn-info btn-block" th:text="#{login_btn_label}"></button>
             </form>
         </div>
     <footer>
