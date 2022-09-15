@@ -6,6 +6,7 @@
          version="4.0">
   <display-name>Archetype Created Web Application</display-name>
 
+
   <!-- web服务监听器，启动spring容器 -->
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
