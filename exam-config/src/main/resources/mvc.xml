@@ -51,6 +51,15 @@
     </bean>
 
     <!--
+            国际化语言环境的存储对象，每次拦截器获得的语言都会存入对象，
+            如果某次请求没有获得语言，就会从存储对象获取
+    -->
+    <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="zh_CN" />
+    </bean>
+
+    <!--
         <a href="xxxxx?lang=zh_CN" >中文</a>
         此次请求传递了一个语言参数，希望接下来所有的请求，都使用这种语言。
         而接下来的请求不需要每次都传递这个参数
@@ -61,15 +70,18 @@
               class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
             <property name="paramName" value="lang" />
         </bean>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/common/login"/>
+            <mvc:exclude-mapping path="/common/login.html"/>
+            <mvc:exclude-mapping path="/common/exit"/>
+            <mvc:exclude-mapping path="/common/timeout.html"/>
+            <mvc:exclude-mapping path="/js/**"/>
+            <mvc:exclude-mapping path="/css/**"/>
+            <mvc:exclude-mapping path="/images/**"/>
+            <bean id="loginInterceptor" class="com.duyi.examonline.common.interceptors.LoginInterceptor"></bean>
+        </mvc:interceptor>
     </mvc:interceptors>
-
-    <!--
-            国际化语言环境的存储对象，每次拦截器获得的语言都会存入对象，
-            如果某次请求没有获得语言，就会从存储对象获取
-    -->
-    <bean id="localeResolver"
-          class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
-        <property name="defaultLocale" value="zh_CN" />
-    </bean>
-
 </beans>

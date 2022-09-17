@@ -7,7 +7,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -42,6 +41,41 @@ public class CommonController {
         }
         logger.info("login success");
         session.setAttribute("loginTeacher", teacher);
+        return true;
+    }
+
+    @RequestMapping("/common/main.html")
+    public String toMain(){
+        return "common/main";
+    }
+
+    @RequestMapping("/common/exit")
+    public String exit(HttpSession session){
+        session.removeAttribute("loginTeacher");
+        return "common/login";
+    }
+
+    @RequestMapping("/common/timeout.html")
+    public String toTimeout(){
+        return "common/timeout";
+    }
+
+    @RequestMapping("/common/updatePwdTemplate.html")
+    public String toUpdatePwdTemplate(){
+        return "common/updatePwdTemplate";
+    }
+
+    @RequestMapping("/common/updatePwd")
+    @ResponseBody
+    public boolean updatePwd(String oldpass, String newpass, HttpSession session){
+        oldpass = DigestUtil.md5Hex(oldpass);
+        newpass = DigestUtil.md5Hex(newpass);
+        Teacher teacher = (Teacher) session.getAttribute("loginTeacher");
+        if (!oldpass.equals(teacher.getPass())){
+            return false;
+        }
+        long id = teacher.getId();
+        teacherService.updatePwdById(id, newpass);
         return true;
     }
 }

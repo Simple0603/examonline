@@ -23,6 +23,22 @@ public class Teacher {
 
     private Date updateTime;
 
+    @Override
+    public String toString() {
+        return "Teacher{" +
+                "id=" + id +
+                ", tname='" + tname + '\'' +
+                ", mnemonicCode='" + mnemonicCode + '\'' +
+                ", pass='" + pass + '\'' +
+                ", yl1='" + yl1 + '\'' +
+                ", yl2='" + yl2 + '\'' +
+                ", yl3='" + yl3 + '\'' +
+                ", yl4='" + yl4 + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
+
     public Long getId() {
         return id;
     }

@@ -155,4 +155,29 @@
     from t_teacher
     where tname = #{tname} or mnemonic_code = #{tname}
   </select>
+  <update id="updatePwdById">
+    update t_teacher set pass = #{pass} where id = #{id}
+  </update>
+  <select id="total" resultType="java.lang.Long">
+    select
+        count(tname)
+    from t_teacher
+    <where>
+      <if test="tname != '' and tname != null">
+        and tname like #{tname} or mnemonic_code like #{tname}
+      </if>
+    </where>
+  </select>
+  <select id="find" resultMap="teacherMap">
+    select
+        <include refid="Base_Column_List"></include>
+    from t_teacher
+    <where>
+      <if test="tname != '' and tname != null">
+         and tname like concat('%', #{tname}, '%') or mnemonic_code like concat('%', #{tname}, '%')
+      </if>
+    </where>
+    order by create_time asc
+    limit #{start}, #{end}
+  </select>
 </mapper>

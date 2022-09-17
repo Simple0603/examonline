@@ -6,18 +6,86 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="css/main.css" type="text/css">
+        <script src="js/common.js"></script>
+
+        <link rel="shortcut icon" href="favicon.ico">
     </div>
 
-    <div th:fragment="header">
+    <div th:fragment="header" class="header-box">
         <div class="logo-box">
+            <img id="logo" src="images/logo.svg" style="width: 45px; margin-right: 10px">
             <span>在线考试系统</span>
         </div>
         <div class="welcome-box">
-            <span>欢迎 [[${session.loginTeacher.tname}]]</span>
+            <span>欢迎</span>
+            <!-- Single button -->
+            <div class="btn-group">
+                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    [[${session.loginTeacher.tname}]]<span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="javascript:void(0);">
+                            <span class="glyphicon glyphicon-user"></span>个人信息
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" onclick="common.toUpdatePwd()">
+                            <span class="glyphicon glyphicon-lock"></span>修改密码
+                        </a>
+                    </li>
+                    <li>
+                        <a href="javascript:void(0);" onclick="common.exit();">
+                            <span class="glyphicon glyphicon-log-out"></span>退出系统
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+                        <h4 class="modal-title" id="modal-title">修改密码</h4>
+                    </div>
+                    <div class="modal-body" id="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer" id="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" onclick="common.updatePwd()">提交</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div th:fragment="nav"></div>
+    <div th:fragment="nav" class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="teacher/teacher.html">教师管理</a></li>
+                    <li><a href="#">学生管理</a></li>
+                    <li><a href="#">试题管理</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">模板管理 <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">新建模板</a></li>
+                            <li><a href="#">模板列表</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">考试管理</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </div>
 
-    <div th:fragment="footer"></div>
+    <div th:fragment="footer" class="footer-box">
+        © 2022 未来科技有限公司
+    </div>
 </html>
