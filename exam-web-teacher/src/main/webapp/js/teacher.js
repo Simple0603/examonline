@@ -71,3 +71,28 @@ teacher.toEditTeacher = function (id) {
         $('#teacher-modal').modal('show');
     });
 }
+
+teacher.toCheckAll = function () {
+    var check = $('#teacherGrid thead :checkbox').prop('checked');
+    $('#teacherGrid tbody :checkbox').prop('checked', check);
+}
+
+teacher.toDeleteAll = function () {
+    var len = $('#teacherGrid tbody :checked').length;
+    if (len == 0){
+        alert("请至少选中一条要删除的记录");
+        return ;
+    }
+    if (!confirm('是否确认删除选中的【' + len + '】条记录？')){
+        return;
+    }
+
+    var ids = '';
+    $('#teacherGrid tbody :checked').each(function (i, element) {
+        ids += element.value + ',';
+    });
+    $.post("teacher/deleteAll", {ids : ids}, function () {
+        alert("删除成功");
+        teacher.toPageTeacherQuery($('.pagination .active').text());
+    });
+}

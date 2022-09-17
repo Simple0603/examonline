@@ -10,4 +10,5 @@ public interface TeacherService {
     PageVO find(int curr, int rows, String tname);
     Teacher selectById(long id);
     boolean updateNameById(Long id, String tname);
+    void deleteAll(String ids);
 }

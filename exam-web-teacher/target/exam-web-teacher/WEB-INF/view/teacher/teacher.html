@@ -37,7 +37,7 @@
         </button>
       </div>
       <div class="form-group right">
-        <button type="button" class="btn btn-default" onclick="">
+        <button type="button" class="btn btn-default" onclick="teacher.toDeleteAll()">
           <span class="glyphicon glyphicon-trash"></span> 批量删除
         </button>
       </div>
@@ -51,7 +51,7 @@
       <table id="teacherGrid" class="table table-striped table-hover">
         <thead>
           <tr>
-            <th width="10%"><input type="checkbox"></th>
+            <th width="10%"><input type="checkbox" onclick="teacher.toCheckAll()"></th>
             <th width="10%">序号</th>
             <th width="20%">教师名称</th>
             <th width="15%">助记码</th>
@@ -97,7 +97,7 @@
             </a>
           </li>
           <li th:each="i:${#numbers.sequence(1, pageVO.max)}" th:class="${i == pageVO.curr} ? 'active' : ''">
-            <a href="javascript:void(0)" th:text="${i}" th:onclick="teacher.toPageTeacherQuery('[[${pageVO.curr}]]')"></a>
+            <a href="javascript:void(0)" th:text="${i}" th:onclick="teacher.toPageTeacherQuery('[[${i}]]')"></a>
           </li>
           <li th:if="${pageVO.curr == pageVO.max}" class="disabled">
             <a href="javascript:void(0)" aria-label="Next">

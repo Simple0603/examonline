@@ -177,7 +177,7 @@
          and tname like concat('%', #{tname}, '%') or mnemonic_code like concat('%', #{tname}, '%')
       </if>
     </where>
-    order by create_time asc
+    order by create_time desc
     limit #{start}, #{end}
   </select>
 </mapper>

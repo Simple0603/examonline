@@ -52,6 +52,9 @@ public class TeacherServiceImpl implements TeacherService {
         if (max < 1){
             max = 1;
         }
+        if (curr > max){
+            curr = max;
+        }
         Map<String, Object> condition = new HashMap<>();
         condition.put("tname", tname);
         List<Teacher> teachers = teacherMapper.find(start, end, tname);
@@ -75,6 +78,13 @@ public class TeacherServiceImpl implements TeacherService {
             return true;
         }catch (DuplicateKeyException e){
             return false;
+        }
+    }
+
+    @Override
+    public void deleteAll(String ids) {
+        for (String s : ids.split(",")){
+            teacherMapper.deleteByPrimaryKey(Long.parseLong(s));
         }
     }
 }
