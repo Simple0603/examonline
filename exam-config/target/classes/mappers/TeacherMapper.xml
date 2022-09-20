@@ -178,6 +178,6 @@
       </if>
     </where>
     order by create_time desc
-    limit #{start}, #{end}
+    limit #{start}, #{rows}
   </select>
 </mapper>
