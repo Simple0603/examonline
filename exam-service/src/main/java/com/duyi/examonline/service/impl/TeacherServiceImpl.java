@@ -3,6 +3,7 @@ package com.duyi.examonline.service.impl;
 import cn.hutool.crypto.digest.DigestAlgorithm;
 import cn.hutool.crypto.digest.Digester;
 import cn.hutool.extra.pinyin.PinyinUtil;
+import com.duyi.examonline.common.CommonData;
 import com.duyi.examonline.dao.TeacherMapper;
 import com.duyi.examonline.domain.Teacher;
 import com.duyi.examonline.domain.vo.PageVO;
@@ -57,7 +58,7 @@ public class TeacherServiceImpl implements TeacherService {
         }
         Map<String, Object> condition = new HashMap<>();
         condition.put("tname", tname);
-        List<Teacher> teachers = teacherMapper.find(start, end, tname);
+        List<Teacher> teachers = teacherMapper.find(start, rows, tname);
         return new PageVO(curr, rows, total, max, start, end, teachers, condition);
     }
 
@@ -86,5 +87,24 @@ public class TeacherServiceImpl implements TeacherService {
         for (String s : ids.split(",")){
             teacherMapper.deleteByPrimaryKey(Long.parseLong(s));
         }
+    }
+
+    @Override
+    public String insertAllWithoutTx(List<Teacher> teachers) {
+        String msg = "";
+        int success = 0;
+        int fail = 0;
+        for (Teacher teacher : teachers){
+            teacher.setPass(CommonData.DEFAULT_PASS);
+            try {
+                this.insert(teacher);
+                success++;
+            } catch (DuplicateKeyException e){
+                msg += "【"+teacher.getTname()+"】记录，因为名称重复导致失败|";
+                fail++;
+            }
+        }
+        msg = "共有记录【"+teachers.size()+"】条|" + "成功导入记录【"+success+"】条|" + "失败导入记录【"+fail+"】条|" + msg;
+        return msg;
     }
 }

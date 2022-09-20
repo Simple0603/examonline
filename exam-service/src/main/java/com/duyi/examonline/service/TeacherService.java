@@ -3,6 +3,8 @@ package com.duyi.examonline.service;
 import com.duyi.examonline.domain.Teacher;
 import com.duyi.examonline.domain.vo.PageVO;
 
+import java.util.List;
+
 public interface TeacherService {
     void insert(Teacher teacher);
     Teacher selectByName(String tname);
@@ -11,4 +13,5 @@ public interface TeacherService {
     Teacher selectById(long id);
     boolean updateNameById(Long id, String tname);
     void deleteAll(String ids);
+    String insertAllWithoutTx(List<Teacher> teachers);
 }

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <form id="teacher-import-form">
+        <div class="form-group">
+            <input type="file" name="excel" id="import-excel" style="opacity: 0;width: 100px;height: 30px;position: absolute"
+            onchange="teacher.changeFile($('#import-excel').val())">
+            <button class="btn btn-success">
+                <span class="glyphicon glyphicon-file"></span> 选择文件
+            </button>
+            <span id="file-msg"></span>
+        </div>
+
+        <div class="form-group">
+            <a class="btn btn-success" href="teacher/downloadTemplate">
+                <span class="glyphicon glyphicon-save"></span> 下载模板
+            </a>
+        </div>
+    </form>
+</html>

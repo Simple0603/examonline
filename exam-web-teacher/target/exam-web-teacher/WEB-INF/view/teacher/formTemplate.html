@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
     <form>
+        <input type="hidden" id="id-for-edit" th:value="${teacher != null ? teacher.id : ''}">
         <div class="form-group">
-            <input type="hidden" id="id-for-edit" th:value="${teacher != null ? teacher.id : ''}">
             <label for="form-tname">教师姓名</label>
             <div class="input-group">
                 <span class="input-group-addon">

@@ -96,3 +96,51 @@ teacher.toDeleteAll = function () {
         teacher.toPageTeacherQuery($('.pagination .active').text());
     });
 }
+
+teacher.toImport = function () {
+    var uploading = false ;
+    $.post("teacher/importTemplate", {}, function (view) {
+        $('#teacher-modal-title').html('导入教师信息');
+        $('#teacher-modal-body').html(view);
+        $('#teacher-modal-submit').click(function () {
+            var fileInfo = $('#import-excel').val();
+            if(!fileInfo){
+                alert('请选择要上传的excel文件');
+                return ;
+            }
+            if(uploading){
+                alert("文件正在上传中，请稍候");
+                return false;
+            }
+            $.ajax({
+                url: 'teacher/importTeachers',
+                type: 'POST',
+                cache: false,
+                data: new FormData($('#teacher-import-form')[0]),
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    uploading = true;
+                },
+                success: function (msg) {
+                    uploading = false;
+                    msg = msg.replace(/\|/g,"\r\n");
+                    alert(msg) ;
+                    $('#teacher-modal').modal('hide');
+                    teacher.toClearTeacherQuery();
+                }
+            });
+            $('#teacher-modal-submit').unbind();
+        });
+        $('#teacher-modal').modal('show');
+    });
+}
+
+teacher.changeFile = function (fileInfo) {
+    var fileType = fileInfo.split('.')[1];
+    if (fileType != 'xls' && fileType != 'xlsx') {
+        alert('请选择excel文件');
+    }else {
+        $('#file-msg').text(fileInfo);
+    }
+}
