@@ -14,6 +14,18 @@ public class PageVO implements Serializable {
     private List<?> data ;  //查询到的所有数据组成的集合
     private Map<String,Object> condition ;  //查询条件组成的集合,目前只有tname一个条件
 
+    public int getStartPage(){
+        if (curr <= 3){
+            return 1;
+        }
+        else if (curr > max - 3){
+            return max - 5 + 1;
+        }
+        else {
+            return curr - 2;
+        }
+    }
+
     public PageVO() {
     }
 

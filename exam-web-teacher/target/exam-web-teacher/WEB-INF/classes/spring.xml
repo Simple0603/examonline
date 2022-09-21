@@ -76,6 +76,6 @@
     </aop:config>
 
     <!-- service -->
-    <bean id="teacherService" class="com.duyi.examonline.service.impl.TeacherServiceImpl">
-    </bean>
+    <bean id="teacherService" class="com.duyi.examonline.service.impl.TeacherServiceImpl"></bean>
+    <bean id="studentService" class="com.duyi.examonline.service.impl.StudentServiceImpl"></bean>
 </beans>

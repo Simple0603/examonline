@@ -46,7 +46,7 @@ public class CommonController {
 
     @RequestMapping("/common/main.html")
     public String toMain(){
-        return "common/main";
+        return "common/main.html";
     }
 
     @RequestMapping("/common/exit")

@@ -34,7 +34,7 @@
         targetpackage  输出路径
         targetProject 输出项目位置
           -->
-        <javaModelGenerator targetPackage="com.duyi.examonline.domain" targetProject="exam-domain/src/main/java">
+        <javaModelGenerator targetPackage="com.duyi.examonline.domain" targetProject="exam-domain/src/common/java">
             <!--enableSubPackages是否开启子包名,是否在名称后面加上scheme-->
             <property name="enableSubPackages" value="false" />
 
@@ -43,12 +43,12 @@
         </javaModelGenerator>
 
         <!-- 生成的mapper.xml -->
-        <sqlMapGenerator targetPackage="mappers"  targetProject="exam-config/src/main/resources">
+        <sqlMapGenerator targetPackage="mappers"  targetProject="exam-config/src/common/resources">
             <property name="enableSubPackages" value="false" />
         </sqlMapGenerator>
 
         <!-- 生成的java接口的配置 -->
-        <javaClientGenerator type="XMLMAPPER" targetPackage="com.duyi.examonline.dao"  targetProject="exam-dao/src/main/java">
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.duyi.examonline.dao"  targetProject="exam-dao/src/common/java">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
 

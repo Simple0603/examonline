@@ -27,9 +27,9 @@
         </button>
       </div>
       <div class="form-group right">
-        <button type="button" class="btn btn-default" onclick="">
+        <a type="button" class="btn btn-default" href="teacher/exportTeachers">
           <span class="glyphicon glyphicon-export"></span> 批量导出
-        </button>
+        </a>
       </div>
       <div class="form-group right">
         <button type="button" class="btn btn-default" onclick="teacher.toImport()">
@@ -96,7 +96,7 @@
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
-          <li th:each="i:${#numbers.sequence(1, pageVO.max)}" th:class="${i == pageVO.curr} ? 'active' : ''">
+          <li th:each="i:${#numbers.sequence(pageVO.getStartPage(), pageVO.getStartPage()+4)}" th:class="${i == pageVO.curr} ? 'active' : ''">
             <a href="javascript:void(0)" th:text="${i}" th:onclick="teacher.toPageTeacherQuery('[[${i}]]')"></a>
           </li>
           <li th:if="${pageVO.curr == pageVO.max}" class="disabled">

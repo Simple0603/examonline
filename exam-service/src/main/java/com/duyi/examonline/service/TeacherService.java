@@ -14,4 +14,5 @@ public interface TeacherService {
     boolean updateNameById(Long id, String tname);
     void deleteAll(String ids);
     String insertAllWithoutTx(List<Teacher> teachers);
+    List<Teacher> findAll();
 }

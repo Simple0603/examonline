@@ -180,4 +180,10 @@
     order by create_time desc
     limit #{start}, #{rows}
   </select>
+  <select id="findAll" resultMap="teacherMap">
+    select
+        <include refid="Base_Column_List"></include>
+    from t_teacher
+    order by id asc
+  </select>
 </mapper>

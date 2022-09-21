@@ -2,6 +2,7 @@ package com.duyi.examonline.controller;
 
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.duyi.examonline.common.CommonData;
 import com.duyi.examonline.domain.Teacher;
 import com.duyi.examonline.domain.vo.PageVO;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
@@ -101,5 +103,31 @@ public class TeacherController {
         reader.addHeaderAlias("教师名称", "tname");
         List<Teacher> teachers = reader.read(0, 1, Teacher.class);
         return teacherService.insertAllWithoutTx(teachers);
+    }
+
+    @RequestMapping("/teacher/exportTeachers")
+    public ResponseEntity<byte[]> exportTeachers(){
+        List<Teacher> teachers = teacherService.findAll();
+        ExcelWriter writer = ExcelUtil.getWriter(true);
+
+        writer.addHeaderAlias("id", "教师编号");
+        writer.addHeaderAlias("tname", "教师名称");
+        writer.addHeaderAlias("mnemonicCode", "助记码");
+        writer.addHeaderAlias("create_Time", "创建时间");
+
+        // 只有被设置别名的列才会被写入到excel文件中
+        writer.setOnlyAlias(true);
+
+        writer.write(teachers);
+
+        ByteArrayOutputStream os = new ByteArrayOutputStream();
+        writer.flush(os);
+        writer.close();
+        byte[] bs = os.toByteArray();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("content-disposition", "attachment;filename=teachers.xlsx");
+        headers.add("content-type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        return new ResponseEntity<>(bs, headers, HttpStatus.OK);
     }
 }

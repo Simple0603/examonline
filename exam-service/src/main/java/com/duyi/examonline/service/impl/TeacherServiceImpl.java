@@ -107,4 +107,9 @@ public class TeacherServiceImpl implements TeacherService {
         msg = "共有记录【"+teachers.size()+"】条|" + "成功导入记录【"+success+"】条|" + "失败导入记录【"+fail+"】条|" + msg;
         return msg;
     }
+
+    @Override
+    public List<Teacher> findAll() {
+        return teacherMapper.findAll();
+    }
 }

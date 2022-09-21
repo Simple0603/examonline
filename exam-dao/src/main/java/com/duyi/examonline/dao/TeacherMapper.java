@@ -25,4 +25,5 @@ public interface TeacherMapper {
     long total(String tname);
 
     List<Teacher> find(@Param("start") int start, @Param("rows") int rows, @Param("tname") String tname);
+    List<Teacher> findAll();
 }
