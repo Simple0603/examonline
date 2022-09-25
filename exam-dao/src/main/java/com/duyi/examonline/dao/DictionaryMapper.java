@@ -2,6 +2,8 @@ package com.duyi.examonline.dao;
 
 import com.duyi.examonline.domain.Dictionary;
 
+import java.util.List;
+
 public interface DictionaryMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,6 @@ public interface DictionaryMapper {
     int updateByPrimaryKeySelective(Dictionary record);
 
     int updateByPrimaryKey(Dictionary record);
+
+    List<String> findMajors() ;
 }

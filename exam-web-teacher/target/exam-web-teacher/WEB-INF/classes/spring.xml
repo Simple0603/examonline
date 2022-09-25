@@ -40,6 +40,19 @@
         <!-- 对指定包中的类设置别名，别名就是类名或类名首字母小写 -->
         <property name="typeAliasesPackage" value="com.duyi.examonline.domain"></property>
         <property name="configLocation" value="classpath:mybatis.xml"></property>
+        <property name="plugins">
+            <array>
+                <bean class="com.github.pagehelper.PageInterceptor">
+                    <property name="properties">
+                        <!--使用下面的方式配置参数，一行配置一个 -->
+                        <value>
+                            helperDialect=mysql
+                            reasonable=true
+                        </value>
+                    </property>
+                </bean>
+            </array>
+        </property>
     </bean>
 
     <!-- get MapperScannerConfigurer to get mapper -->
@@ -78,4 +91,5 @@
     <!-- service -->
     <bean id="teacherService" class="com.duyi.examonline.service.impl.TeacherServiceImpl"></bean>
     <bean id="studentService" class="com.duyi.examonline.service.impl.StudentServiceImpl"></bean>
+    <bean id="dictionaryService" class="com.duyi.examonline.service.impl.DictionaryServiceImpl"></bean>
 </beans>

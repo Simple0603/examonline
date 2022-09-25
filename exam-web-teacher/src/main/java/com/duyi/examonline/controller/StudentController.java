@@ -5,6 +5,8 @@ import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
 import com.duyi.examonline.domain.Student;
 import com.duyi.examonline.domain.Teacher;
+import com.duyi.examonline.domain.vo.PageVO;
+import com.duyi.examonline.service.DictionaryService;
 import com.duyi.examonline.service.StudentService;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,12 +26,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/student")
 public class StudentController {
     @Autowired
     private StudentService studentService;
+
+    @Autowired
+    private DictionaryService dictionaryService;
 
     @RequestMapping("/student")
     public void toStudent(){
@@ -75,8 +83,37 @@ public class StudentController {
         return new ResponseEntity<>(bs, headers, HttpStatus.OK);
     }
 
-    public ResponseEntity<byte[]> exportStudents(){
-        // start from here, complete exporting students
-        return new ResponseEntity<>(new byte[10], new HttpHeaders(), HttpStatus.OK);
+    @RequestMapping("/emptyClassTemplate")
+    public String toEmptyClassTemplate(){
+        return "student/classTemplate::classTemplate";
+    }
+
+    @RequestMapping("/classTemplate.html")
+    public String toClassesTemplate(int pageNo, @RequestParam Map condition, Model model){
+        PageVO pageVO = studentService.findClasses(pageNo,condition);
+        model.addAttribute("pageVO",pageVO);
+
+        return "student/classTemplate::classTemplate" ;
+    }
+
+    @RequestMapping("/emptyStudentTemplate")
+    public String toEmptyStudentTemplate(){
+        return "student/studentTemplate::studentTemplate";
+    }
+
+    @RequestMapping("/studentTemplate.html")
+    public String toStudentTemplate(@RequestParam Map condition, Model model){
+        List<Student> students = studentService.findStudents(condition);
+        model.addAttribute("students",students) ;
+        return "student/studentTemplate::studentTemplate" ;
+    }
+
+    @RequestMapping("/formTemplate.html")
+    public String toFormTemplate(Model model){
+        //因为模板页需要所有的专业信息，所以需要查询
+        List<String> majors = dictionaryService.findMajors() ;
+        model.addAttribute("majors",majors);
+
+        return "student/formTemplate" ;
     }
 }

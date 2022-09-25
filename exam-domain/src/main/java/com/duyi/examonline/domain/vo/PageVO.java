@@ -15,14 +15,23 @@ public class PageVO implements Serializable {
     private Map<String,Object> condition ;  //查询条件组成的集合,目前只有tname一个条件
 
     public int getStartPage(){
-        if (curr <= 3){
+        if(curr > 2 && curr + 2 < max){
+            return curr-2 ;
+        }else if(curr <= 2){
             return 1;
+        }else{
+            //curr + 2>=max
+            return max-5+1;
         }
-        else if (curr > max - 3){
-            return max - 5 + 1;
-        }
-        else {
-            return curr - 2;
+    }
+    public int getEndPage(){
+        if(curr > 2 && curr + 2 < max){
+            return curr+2 ;
+        }else if(curr <= 2 && max > 5){
+            return 5 ;
+        }else{
+            //curr + 2>=max
+            return max ;
         }
     }
 

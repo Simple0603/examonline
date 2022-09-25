@@ -196,4 +196,42 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="findClasses" resultType="map">
+    select
+    concat(grade,'-',major,'-',class_no) className ,
+    count(*) total
+    from
+    t_student
+    <where>
+      <if test="grade != null and grade != ''">
+        and grade = #{grade}
+      </if>
+      <if test="major != null and major != ''">
+        and major like concat('%',#{major},'%')
+      </if>
+      <if test="classNo != null and classNo != ''">
+        and class_no like concat(#{classNo},'%')
+      </if>
+    </where>
+    group by grade , major , class_no
+    order by major ,grade desc,class_no asc
+  </select>
+  <select id="findStudents" resultMap="studentMap">
+    select
+    <include refid="Base_Column_List"></include>
+    from
+    t_student
+    <where>
+      <if test="code != null and code != ''">
+        and code = #{code}
+      </if>
+      <if test="sname != null and sname != ''">
+        and (sname = #{sname} or mnemonic_code = #{sname})
+      </if>
+      <if test="classInfo != null and classInfo != ''">
+        and concat(grade,'-',major,'-',class_no) = #{classInfo}
+      </if>
+    </where>
+    order by code
+  </select>
 </mapper>

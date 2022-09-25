@@ -68,4 +68,13 @@
       type = #{type,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="findMajors" resultType="java.lang.String">
+    select
+      name
+    from
+      t_dictionary
+    where
+      type = '专业'
+    order by name
+  </select>
 </mapper>

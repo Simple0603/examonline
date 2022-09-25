@@ -27,12 +27,12 @@
                     <input id="search-class" type="text" class="form-control">
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-default" onclick="student.toStudentQuery()">
+                    <button type="button" class="btn btn-default" onclick="student.toClassQuery()">
                         <span class="glyphicon glyphicon-zoom-in"></span> 查询
                     </button>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-default" onclick="student.toClearStudentQuery()">
+                    <button type="button" class="btn btn-default" onclick="student.toClearClass()">
                         <span class="glyphicon glyphicon-zoom-out"></span> 清空
                     </button>
                 </div>
@@ -42,33 +42,7 @@
                     </a>
                 </div>
             </div>
-            <div style="height: 180px">
-                <table id="classGrid" class="table table-striped table-hover">
-                    <thead>
-                    <tr>
-                        <th><input type="checkbox"></th>
-                        <th>序号</th>
-                        <th>班级名称</th>
-                        <th>班级人数</th>
-                        <th>操作</th>
-                    </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-            <nav aria-label="Page navigation">
-                <ul class="pagination">
-                    <li class="disabled">
-                        <a href="javascript:void(0)"><span>&laquo;</span></a>
-                    </li>
-                    <li class="active">
-                        <a href="javascript:void(0)"><span>1</span></a>
-                    </li>
-                    <li class="disabled">
-                        <a href="javascript:void(0)"><span>&raquo;</span></a>
-                    </li>
-                </ul>
-            </nav>
+            <div th:replace="student/classTemplate::classTemplate"></div>
         </div>
         <!-- 展示学生信息 -->
         <div class="part2">
@@ -81,7 +55,7 @@
                     <label for="search-sname">姓名</label>
                     <input id="search-sname" type="text" class="form-control">
                 </div>
-                <div class="form-group form-sm">
+                <div class="form-group">
                     <label for="search-classno">班级</label>
                     <input id="search-classno" type="text" class="form-control">
                 </div>
@@ -91,7 +65,7 @@
                     </button>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-default" onclick="student.toClearStudentQuery()">
+                    <button type="button" class="btn btn-default" onclick="student.toClearStudent()">
                         <span class="glyphicon glyphicon-zoom-out"></span> 清空
                     </button>
                 </div>
@@ -106,23 +80,12 @@
                     </button>
                 </div>
                 <div class="form-group right">
-                    <button type="button" class="btn btn-default" onclick="teacher.toDeleteAll()">
+                    <button type="button" class="btn btn-default" onclick="student.toAdd()">
                         <span class="glyphicon glyphicon-plus"></span> 添加学生
                     </button>
                 </div>
             </div>
-            <table id="studentGrid" class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th width="5%"><input type="checkbox"></th>
-                    <th width="10%">序号</th>
-                    <th width="15%">学号</th>
-                    <th width="15%">姓名</th>
-                    <th width="25%">班级</th>
-                    <th width="30%">操作</th>
-                </tr>
-                </thead>
-            </table>
+            <div th:replace="student/studentTemplate::studentTemplate"></div>
         </div>
     </div>
     <div th:replace="common::footer"></div>
