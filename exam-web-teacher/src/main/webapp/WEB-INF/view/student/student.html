@@ -37,9 +37,14 @@
                     </button>
                 </div>
                 <div class="form-group right">
-                    <a type="button" class="btn btn-default" href="teacher/exportTeachers">
+                    <button type="button" class="btn btn-default" onclick="student.deleteClasses()">
+                        <span class="glyphicon glyphicon-trash"></span> 批量删除班级
+                    </button>
+                </div>
+                <div class="form-group right">
+                    <button type="button" class="btn btn-default" onclick="student.toExportClasses()">
                         <span class="glyphicon glyphicon-export"></span> 导出班级信息
-                    </a>
+                    </button>
                 </div>
             </div>
             <div th:replace="student/classTemplate::classTemplate"></div>
@@ -67,6 +72,11 @@
                 <div class="form-group">
                     <button type="button" class="btn btn-default" onclick="student.toClearStudent()">
                         <span class="glyphicon glyphicon-zoom-out"></span> 清空
+                    </button>
+                </div>
+                <div class="form-group right">
+                    <button type="button" class="btn btn-default" onclick="student.deleteStudents()">
+                        <span class="glyphicon glyphicon-trash"></span> 批量删除学生
                     </button>
                 </div>
                 <div class="form-group right">

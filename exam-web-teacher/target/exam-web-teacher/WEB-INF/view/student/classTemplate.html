@@ -26,7 +26,7 @@
                 <span class="glyphicon glyphicon-plus"></span> 添加学生
               </button>
 
-              <button class="btn btn-sm btn-danger" th:onclick="">
+              <button class="btn btn-sm btn-danger" th:onclick="student.deleteClass([[${classObj.className}]])">
                 <span class="glyphicon glyphicon-trash"></span> 删除班级
               </button>
 

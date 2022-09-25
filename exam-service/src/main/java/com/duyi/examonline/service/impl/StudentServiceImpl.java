@@ -72,7 +72,47 @@ public class StudentServiceImpl implements StudentService {
 
     }
 
+    @Override
     public List<Student> findStudents(Map condition){
         return studentMapper.findStudents(condition);
+    }
+
+    @Override
+    public void update(Student student) {
+        student.setMnemonicCode( PinyinUtil.getPinyin(student.getSname(),"") );
+
+        try{
+            studentMapper.updateByPrimaryKeySelective(student) ;
+        }catch (DuplicateKeyException e){
+            throw e ;
+        }
+    }
+
+    @Override
+    public Student findStudentById(Long id) {
+        return studentMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void deleteByClasses(String classNames) {
+        studentMapper.deleteByClasses(classNames);
+    }
+
+    @Override
+    public void deleteStudent(Long id) {
+        studentMapper.deleteByPrimaryKey(id);
+    }
+
+    @Override
+    public void deleteStudents(String ids) {
+        //一条sql也可以实现批量删除  delete from t_student id in (1,2,3,4,5)
+        //in中的条件内容恰好和我们传递的ids值 格式一样
+        //此时考虑将ids值原样拼装在sql中。  mybatis的${}支持原样拼串
+        studentMapper.deleteStudents(ids);
+    }
+
+    @Override
+    public List<Student> findStudentsByClasses(Map condition) {
+        return studentMapper.findStudentsByClasses(condition);
     }
 }

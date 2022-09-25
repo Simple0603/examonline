@@ -8,7 +8,14 @@ import java.util.List;
 import java.util.Map;
 
 public interface StudentService {
+    void insert(Student student);
     String insertAllWithoutTx(List<Student> students);
     PageVO findClasses(int pageNo, Map condition);
     List<Student> findStudents(Map condition);
+    void update(Student student);
+    Student findStudentById(Long id);
+    void deleteByClasses(String classNames);
+    void deleteStudent(Long id);
+    void deleteStudents(String ids);
+    List<Student> findStudentsByClasses(Map condition);
 }

@@ -28,4 +28,10 @@ public interface StudentMapper {
     List<Map> findClasses(Map condition) ;
 
     List<Student> findStudents(Map condition) ;
+
+    void deleteByClasses(String classNames) ;
+
+    void deleteStudents(String ids) ;
+
+    List<Student> findStudentsByClasses(Map condition) ;
 }

@@ -234,4 +234,33 @@
     </where>
     order by code
   </select>
+  <delete id="deleteByClasses">
+    delete from t_student
+    where #{classNames} like concat('%',grade,'-',major,'-',class_no,'%')
+  </delete>
+  <delete id="deleteStudents">
+    delete from t_student
+    where id in (${ids})
+  </delete>
+  <select id="findStudentsByClasses" resultMap="studentMap" >
+    select
+    <include refid="Base_Column_List"></include>
+    from
+    t_student
+    <where>
+      <if test="grade != null and grade != ''">
+        and grade = #{grade}
+      </if>
+      <if test="major != null and major != ''">
+        and major like concat('%',#{major},'%')
+      </if>
+      <if test="classNo != null and classNo != ''">
+        and class_no like concat(#{classNo},'%')
+      </if>
+      <if test="classNames != null and classNames != ''">
+        and #{className} like concat('%',grade,'-',major,'-',class_no,'%')
+      </if>
+    </where>
+    order by major asc , grade desc ,class_no asc, code asc
+  </select>
 </mapper>
